@@ -1,8 +1,7 @@
 # チャットボットニュース
 これはPython講義のデモアプリの1つで、 `Flask`と `BeautifulSoup`の練習課題です.  
 声で話しかけると、Webスクレイピングを行い、最近話題のオススメ記事を1つ教えてくれます.  
-
-
+***
 ![チャットボットニュース](https://raw.githubusercontent.com/yoheimune-python-lecture/chatbot-news/image/resources/screenshot.png)
 
 # 演習の準備
@@ -21,6 +20,7 @@ $ pip3 install --upgrade beautifulsoup4
 ## 起動確認
 まずは起動してみて動くことを確認します.
 ```
+$ cd practice
 $ python3 app.py
 ```
 以下のURLでアクセス可能です。
