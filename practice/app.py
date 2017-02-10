@@ -14,16 +14,36 @@ def index():
 @app.route("/api/recommend_article")
 def api_recommend_article():
     """はてブのホットエントリーから記事を入手して、ランダムに1件返却します."""
-    with urlopen("http://b.hatena.ne.jp/hotentry") as res:
-        html = res.read().decode("utf-8")
-    soup = BeautifulSoup(html, "html.parser")
-    titles = soup.select(".entry-link")
-    shuffle(titles)
-    title = titles[0]
+
+    """
+        **** ここを実装します ****
+
+        1. はてブのホットエントリーページのHTMLを取得する
+        2. BeautifulSoupでHTMLを読み込む
+        3. 記事一覧を取得する
+        4. ランダムに1件取得する
+        5. 以下の形式で返却する.
+            {
+                "content" : "記事のタイトル",
+                "link" : "記事のURL"
+            }
+    """
+
+    # ダミー
     return json.dumps({
-        "content" : title.string,
-        "link" : title["href"]
+        "content" : "記事のタイトルだよー",
+        "link" : "記事のURLだよー"
     })
 
+@app.route("/api/xxxx")
+def api_xxxx():
+    """
+        **** ここを実装します（発展課題） ****
+        ・自分の好きなサイトをWebスクレイピングして情報をフロントに返却します
+        ・お天気APIなども良いかも
+        ・関数名は適宜変更してください
+    """
+    pass
+
 if __name__ == "__main__":
-    app.run(debug=True, port=5003)
+    app.run(debug=True, port=5004)
