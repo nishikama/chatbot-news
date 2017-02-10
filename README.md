@@ -30,7 +30,8 @@ http://localhost:5004
 
 # 基礎課題
 この演習では、Flaskアプリケーション上でWebスクレイピングを行う部分を実装します。修正するプログラムは以下です。  
-- app.py  
+- app.py
+
 app.py内の以下の箇所で、Webスクレイピングを実装してください。
 ```python
 @app.route("/api/recommend_article")
