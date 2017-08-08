@@ -52,8 +52,8 @@ function handleStartButtonClick() {
 
     // 音声認識の結果を取得した時のイベント.
     recognition.onresult = event => {
-      console.log('onresult');
       let text = event.results.item(0).item(0).transcript;
+      console.log('onresult: ', text);
 
       if (text.indexOf('ニュース') !== -1) {
         // ニュースだったら、API経由でおすすめ記事を取得する.
@@ -67,8 +67,12 @@ function handleStartButtonClick() {
       }
     };
 
-    // 音声認識を開始します.
-    recognition.start();
+    // // 音声認識を開始します.
+    // recognition.continuous = false;
+    // recognition.interimResults = true;
+    // recognition.start();
+
+    showRecommendArticle();
 }
 
 /**
@@ -78,6 +82,7 @@ function handleStopButtonClick() {
     if (recognition) {
         recognition.stop();
     }
+
 }
 
 /**
@@ -108,7 +113,8 @@ function startIntro() {
 
     return new Promise((resolve, reject) => {
 
-        let texts = "「おすすめニュースを教えて」と聞いてみてください。".split('');
+        // let texts = "「おすすめニュースを教えて」と聞いてみてください。".split('');
+        let texts = "「おすすめニュースを教えて」とボタンを押してみてください。".split('');
 
         function showMessage(texts, cb) {
             if (texts.length === 0) {
