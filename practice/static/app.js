@@ -52,8 +52,13 @@ function handleStartButtonClick() {
 
     // 音声認識の結果を取得した時のイベント.
     recognition.onresult = event => {
-      console.log('onresult');
       let text = event.results.item(0).item(0).transcript;
+      let isFinal = event.results.item(0).isFinal;
+      console.log('onresult: ', text, event.results);
+
+      if (!isFinal) {
+        return;
+      }
 
       if (text.indexOf('ニュース') !== -1) {
         // ニュースだったら、API経由でおすすめ記事を取得する.
@@ -63,11 +68,13 @@ function handleStartButtonClick() {
         // ニュース以外はわからないよ〜.
         let synthes = new SpeechSynthesisUtterance('ごめんなさい、ニュース以外はわかりません');
         synthes.lang = "ja-JP";
-        speechSynthesis.speak(synthes);        
+        speechSynthesis.speak(synthes);
       }
     };
 
     // 音声認識を開始します.
+    recognition.continuous = false;
+    recognition.interimResults = true;
     recognition.start();
 }
 
@@ -108,6 +115,7 @@ function startIntro() {
 
     return new Promise((resolve, reject) => {
 
+        // let texts = "「おすすめニュースを教えて」と聞いてみてください。".split('');
         let texts = "「おすすめニュースを教えて」と聞いてみてください。".split('');
 
         function showMessage(texts, cb) {
