@@ -14,15 +14,15 @@ def index():
 @app.route("/api/recommend_article")
 def api_recommend_article():
     """はてブのホットエントリーから記事を入手して、ランダムに1件返却します."""
-    with urlopen("http://b.hatena.ne.jp/hotentry") as res:
+    with urlopen("http://feeds.feedburner.com/hatena/b/hotentry") as res:
         html = res.read().decode("utf-8")
     soup = BeautifulSoup(html, "html.parser")
-    titles = soup.select(".entry-link")
-    shuffle(titles)
-    title = titles[0]
+    items = soup.select("item")
+    shuffle(items)
+    item = items[0]
     return json.dumps({
-        "content" : title.string,
-        "link" : title["href"]
+        "content" : item.find("title").string,
+        "link" : item.find("link").string
     })
 
 if __name__ == "__main__":
