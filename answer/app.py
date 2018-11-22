@@ -20,9 +20,11 @@ def api_recommend_article():
     items = soup.select("item")
     shuffle(items)
     item = items[0]
+    print(item)
     return json.dumps({
         "content" : item.find("title").string,
-        "link" : item.find("link").string
+        # "link" : item.find("link").string
+        "link": item.get('rdf:about')
     })
 
 if __name__ == "__main__":
