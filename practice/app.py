@@ -1,3 +1,6 @@
+import sys
+sys.path.append("/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages")
+
 import json
 from urllib.request import urlopen
 from random import shuffle
@@ -29,11 +32,24 @@ def api_recommend_article():
             }
     """
 
-    # ダミー
+    with urlopen("http://feeds.feedburner.com/hatena/b/hotentry") as res:
+        html = res.read().decode("utf-8")
+    soup = BeautifulSoup(html, "html.parser")
+    items = soup.select("item")
+    shuffle(items)
+    item = items[0]
+    print(item)
     return json.dumps({
-        "content" : "記事のタイトルだよー",
-        "link" : "記事のURLだよー"
+        "content" : item.find("title").string,
+        # "link" : item.find("link").string
+        "link": item.get('rdf:about')
     })
+
+    # ダミー
+    #return json.dumps({
+    #    "content" : "記事のタイトルだよー",
+    #    "link" : "記事のURLだよー"
+    #})
 
 @app.route("/api/xxxx")
 def api_xxxx():
